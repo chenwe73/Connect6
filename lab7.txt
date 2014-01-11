@@ -1,0 +1,272 @@
+/*// finds the longest sequence of contiguous stones
+int findLongest90(char **board, int n, int row, int col)
+{
+	int result;
+	int seq0 = 1;
+	int seq45 = 1;
+	int seq90 = 1;
+	int seq135 = 1;
+	bool done0 = false, done45 = false, done90 = false, done135 = false;
+	bool done_0 = false, done_45 = false, done_90 = false, done_135 = false;
+	char stone = board[row][col];
+	int i = 1;
+	
+	while (!(done90 && done_90))
+	{
+		if (!done90 && isStone(board, n, row - i, col, stone))
+			seq90++;
+		else
+			done90 = true;
+		if (!done_90 && isStone(board, n, row + i, col, stone))
+			seq90++;
+		else
+			done_90 = true;
+		i++;
+	}
+
+	//printf("seq0:%d\n", seq0);
+	//printf("seq45:%d\n", seq45);
+	//printf("seq90:%d\n", seq90);
+	//printf("seq135:%d\n", seq135);
+	
+	//result = fmax(fmax(seq0, seq45), fmax(seq90, seq135));
+	return seq90;
+}
+
+// finds the longest sequence of contiguous stones
+int findLongest0(char **board, int n, int row, int col)
+{
+	int result;
+	int seq0 = 1;
+	int seq45 = 1;
+	int seq90 = 1;
+	int seq135 = 1;
+	bool done0 = false, done45 = false, done90 = false, done135 = false;
+	bool done_0 = false, done_45 = false, done_90 = false, done_135 = false;
+	char stone = board[row][col];
+	int i = 1;
+	
+	while (!(done0 && done_0))
+	{
+		if (!done0 && isStone(board, n, row, col + i, stone))
+			seq0++;
+		else
+			done0 = true;
+		if (!done_0 && isStone(board, n, row, col - i, stone))
+			seq0++;
+		else
+			done_0 = true;
+		i++;
+	}
+
+	//printf("seq0:%d\n", seq0);
+	//printf("seq45:%d\n", seq45);
+	//printf("seq90:%d\n", seq90);
+	//printf("seq135:%d\n", seq135);
+	
+	//result = fmax(fmax(seq0, seq45), fmax(seq90, seq135));
+	return seq0;
+}*/
+
+// finds the longest avalible span
+int longestSpan90_(char **board, int n, int row, int col)
+{
+	int result;
+	int seq0 = 1;
+	int seq45 = 1;
+	int seq90 = 1;
+	int seq135 = 1;
+	bool done0 = false, done45 = false, done90 = false, done135 = false;
+	bool done_0 = false, done_45 = false, done_90 = false, done_135 = false;
+	char stone = board[row][col];
+	int i = 1;
+	
+	while (!(done90 && done_90))
+	{
+		// is the squre not opponent stone
+		if (!done90 && isNotStone(board, n, row - i, col, notStone(stone)))
+			seq90++;
+		else
+			done90 = true;
+		if (!done_90 && isNotStone(board, n, row + i, col, notStone(stone)))
+			seq90++;
+		else
+			done_90 = true;
+		i++;
+	}
+
+	//printf("seq0:%d\n", seq0);
+	//printf("seq45:%d\n", seq45);
+	//printf("seq90:%d\n", seq90);
+	//printf("seq135:%d\n", seq135);
+	
+	//result = fmax(fmax(seq0, seq45), fmax(seq90, seq135));
+	return seq90;
+}
+
+/*// bound number
+int bound90_ (char** board, int n, int row, int col)
+{
+	int result = 0;
+	int seq0 = 1;
+	int seq45 = 1;
+	int seq90 = 1;
+	int seq135 = 1;
+	bool done0 = false, done45 = false, done90 = false, done135 = false;
+	bool done_0 = false, done_45 = false, done_90 = false, done_135 = false;
+	char stone = board[row][col];
+	int i = 1;
+	 
+	while (!(done90 && done_90))
+	{
+		if (!done90 && isStone(board, n, row - i, col, stone))
+		{
+			seq90++;
+		}
+		// is the squre unoccupied (unbounded) after reaching the longest
+		else if (!done90 && isStone(board, n, row - i, col, UNOCCUPIED))
+		{
+			result++;
+			done90 = true;
+		}
+		else
+			done90 = true;
+		
+		if (!done_90 && isStone(board, n, row + i, col, stone))
+			seq90++;
+		else if (!done_90 && isStone(board, n, row + i, col, UNOCCUPIED))
+		{
+			result++;
+			done_90 = true;
+		}
+		else
+			done_90 = true;
+		i++;
+	}
+	
+	
+	//printf("seq0:%d\n", seq0);
+	//printf("seq45:%d\n", seq45);
+	//printf("seq90:%d\n", seq90);
+	//printf("seq135:%d\n", seq135);
+	
+	//result = fmax(fmax(seq0, seq45), fmax(seq90, seq135));
+	result = 2 - result;
+	return result;
+}*/
+
+/*// finds the longest sequence of contiguous stones
+int findLongest(char **board, int n, int row, int col)
+{
+	int result;
+	int seq0 = 1;
+	int seq45 = 1;
+	int seq90 = 1;
+	int seq135 = 1;
+	bool done0 = false, done45 = false, done90 = false, done135 = false;
+	bool done_0 = false, done_45 = false, done_90 = false, done_135 = false;
+	char stone = board[row][col];
+	int i = 1;
+	
+	while (!(done0 && done45 && done90 && done135 && done_0 && done_45 && done_90 && done_135))
+	{
+		if (!done90 && isStone(board, n, row - i, col, stone))
+			seq90++;
+		else
+			done90 = true;
+		if (!done_90 && isStone(board, n, row + i, col, stone))
+			seq90++;
+		else
+			done_90 = true;
+		if (!done_0 && isStone(board, n, row, col - i, stone))
+			seq0++;
+		else
+			done_0 = true;
+		if (!done0 && isStone(board, n, row, col + i, stone))
+			seq0++;
+		else
+			done0 = true;
+		if (!done135 && isStone(board, n, row - i, col - i, stone))
+			seq135++;
+		else
+			done135 = true;
+		if (!done_135 && isStone(board, n, row + i, col + i, stone))
+			seq135++;
+		else
+			done_135 = true;
+		if (!done45 && isStone(board, n, row - i, col + i, stone))
+			seq45++;
+		else
+			done45 = true;
+		if (!done_45 && isStone(board, n, row + i, col - i, stone))
+			seq45++;
+		else
+			done_45 = true;
+		i++;
+	}
+
+	//printf("seq0:%d\n", seq0);
+	//printf("seq45:%d\n", seq45);
+	//printf("seq90:%d\n", seq90);
+	//printf("seq135:%d\n", seq135);
+	
+	result = fmax(fmax(seq0, seq45), fmax(seq90, seq135));
+	return result;
+}*/
+
+
+		/*board[0][0] = UNOCCUPIED;
+		board[1][0] = human;
+		board[2][0] = computer;
+		board[3][0] = computer;
+		board[4][0] = UNOCCUPIED;
+		board[5][0] = computer;
+		board[6][0] = computer;
+		board[7][0] = computer;
+		board[8][0] = UNOCCUPIED;
+		board[9][0] = UNOCCUPIED;
+		
+		board[0][1] = UNOCCUPIED;
+		board[1][1] = computer;
+		board[2][1] = computer;
+		board[3][1] = UNOCCUPIED;
+		board[4][1] = computer;
+		board[5][1] = computer;
+		board[6][1] = human;
+		board[7][1] = UNOCCUPIED;
+		board[8][1] = UNOCCUPIED;
+		board[9][1] = UNOCCUPIED;
+
+		board[0][2] = UNOCCUPIED;
+		board[1][2] = computer;
+		board[2][2] = computer;
+		board[3][2] = computer;
+		board[4][2] = computer;
+		board[5][2] = UNOCCUPIED;
+		board[6][2] = UNOCCUPIED;
+		board[7][2] = human;
+		board[8][2] = UNOCCUPIED;
+		board[9][2] = UNOCCUPIED;
+
+		board[0][3] = computer;
+		board[1][3] = computer;
+		board[2][3] = UNOCCUPIED;
+		board[3][3] = computer;
+		board[4][3] = computer;
+		board[5][3] = human;
+		board[6][3] = UNOCCUPIED;
+		board[7][3] = computer;
+		board[8][3] = computer;
+		board[9][3] = computer;
+
+		board[0][4] = human;
+		board[1][4] = computer;
+		board[2][4] = UNOCCUPIED;
+		board[3][4] = computer;
+		board[4][4] = UNOCCUPIED;
+		board[5][4] = UNOCCUPIED;
+		board[6][4] = UNOCCUPIED;
+		board[7][4] = UNOCCUPIED;
+		board[8][4] = computer;
+		board[9][4] = computer;
+
